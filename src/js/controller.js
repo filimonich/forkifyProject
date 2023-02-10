@@ -33,12 +33,18 @@ const renderSpinner = function (parentEl) {
 
 const showRecipe = async function () {
   try {
+    const id = window.location.hash.slice(1);
+    console.log(id);
+
+    if (!id) return;
+
     // 1) Загружаем рецепт
     renderSpinner(recipeContainer);
 
     // Ajax запрос к API
     const res = await fetch(
-      'https://forkify-api.herokuapp.com/api/v2/recipes/5ed6604591c37cdc054bc8fd'
+      `https://forkify-api.herokuapp.com/api/v2/recipes/${id}`
+      // 'https://forkify-api.herokuapp.com/api/v2/recipes/5ed6604591c37cdc054bc8fd'
       // 'https://forkify-api.herokuapp.com/api/v2/recipes/5ed6604591c37cdc054bc886'
     );
     const data = await res.json();
@@ -168,4 +174,8 @@ const showRecipe = async function () {
     alert(err);
   }
 };
-showRecipe();
+
+// Событие hashchange генерируется когда изменяется идентификатор фрагмента URL (т.е. часть URL следующая за символом #, включая сам символ #).
+// window.addEventListener('hashchange', showRecipe);
+// window.addEventListener('load', showRecipe);
+['hashchange', 'load'].forEach(ev => window.addEventListener(ev, showRecipe));
