@@ -1,4 +1,6 @@
-import { async } from 'regenerator-runtime';
+// import { async } from 'regenerator-runtime';
+import { API_URL } from './config.js';
+import { getJSON } from './helpers.js';
 
 // именнованный экспорт
 export const state = {
@@ -8,14 +10,7 @@ export const state = {
 // именнованный экспорт
 export const loadRecipe = async function (id) {
   try {
-    // Ajax запрос к API
-    const res = await fetch(
-      `https://forkify-api.herokuapp.com/api/v2/recipes/${id}`
-    );
-    const data = await res.json();
-
-    // if ok: false
-    if (!res.ok) throw new Error(`${data.message} (${res.status})`);
+    const data = await getJSON(`${API_URL}/${id}`);
 
     // Так как есть recipe с обеих сторон, можно использовать Деструктурирующее присваивание { recipe }
     // let recipe = data.data.recipe;
@@ -32,6 +27,7 @@ export const loadRecipe = async function (id) {
     };
     console.log(state.recipe);
   } catch (err) {
-    alert(err);
+    // обработка временных ошибок
+    console.error(`${err} 💥💥💥💥`);
   }
 };
