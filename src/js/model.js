@@ -29,5 +29,6 @@ export const loadRecipe = async function (id) {
   } catch (err) {
     // обработка временных ошибок
     console.error(`${err} 💥💥💥💥`);
+    throw err;
   }
 };
