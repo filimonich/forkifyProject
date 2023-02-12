@@ -33,6 +33,16 @@ class RecipeView {
     this.#parentElement.insertAdjacentHTML('afterbegin', markup);
   };
 
+  addHandlerRender(handler) {
+    // Событие hashchange генерируется когда изменяется идентификатор фрагмента URL (т.е. часть URL следующая за символом #, включая сам символ #).
+    // window.addEventListener('hashchange', controlRecipes);
+    // window.addEventListener('load', controlRecipes);
+    ['hashchange', 'load'].forEach(ev =>
+      // window.addEventListener(ev, controlRecipes)
+      window.addEventListener(ev, handler)
+    );
+  }
+
   #generateMarkup() {
     console.log(this.#data);
     return `

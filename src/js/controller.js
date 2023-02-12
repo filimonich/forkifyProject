@@ -27,13 +27,12 @@ const controlRecipes = async function () {
     // 2) Рендеринг рецепта
     recipeView.render(model.state.recipe);
   } catch (err) {
-    alert(err);
+    // alert(err);
+    console.log(err);
   }
 };
 
-// Событие hashchange генерируется когда изменяется идентификатор фрагмента URL (т.е. часть URL следующая за символом #, включая сам символ #).
-// window.addEventListener('hashchange', controlRecipes);
-// window.addEventListener('load', controlRecipes);
-['hashchange', 'load'].forEach(ev =>
-  window.addEventListener(ev, controlRecipes)
-);
+const init = function () {
+  recipeView.addHandlerRender(controlRecipes);
+};
+init();
