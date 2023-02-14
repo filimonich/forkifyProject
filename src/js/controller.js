@@ -15,6 +15,9 @@ import 'regenerator-runtime/runtime';
 
 const controlRecipes = async function () {
   try {
+    // 0. Обновление вида результатов, что бы отменить выбранные результат поиска
+    resultsView.update(model.getSearchResultsPage());
+
     // 1. Получить поисковый запрос
     const id = window.location.hash.slice(1);
 
@@ -66,7 +69,8 @@ const controlServings = function (newServings) {
   model.updateServings(newServings);
 
   // обновите отображение рецепта
-  recipeView.render(model.state.recipe);
+  // recipeView.render(model.state.recipe);
+  recipeView.update(model.state.recipe);
 };
 
 const init = function () {

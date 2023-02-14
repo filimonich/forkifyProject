@@ -2,5 +2,4 @@ node_modules/
 dist
 .vscode
 .prettierrc
-.parcel-cache/data.mdb
 .parcel-cache
