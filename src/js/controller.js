@@ -23,17 +23,20 @@ const controlRecipes = async function () {
 
     // 0. Обновление вида результатов, что бы отменить выбранные результат поиска
     resultsView.update(model.getSearchResultsPage());
+
+    // 1. Обновление вида закладки
     bookmarksView.update(model.state.bookmarks);
 
-    // 1. Загружаем рецепт
+    // 2. Загружаем рецепт
     // Асинхронная функция вызывает другую асинхронную функцию
     // Асинхронная функция возврощает обещание, которое нужно обработать при вызове этой асинхронной функции, await и заставляет JavaScript дожидаться выполнения промиса
     await model.loadRecipe(id);
 
-    // 2. Рендеринг рецепта
+    // 3. Рендеринг рецепта
     recipeView.render(model.state.recipe);
   } catch (err) {
     recipeView.renderError();
+    console.error(err);
   }
 };
 
@@ -86,7 +89,12 @@ const controlAddBookmark = function () {
   bookmarksView.render(model.state.bookmarks);
 };
 
+const controlBookmarks = function () {
+  bookmarksView.render(model.state.bookmarks);
+};
+
 const init = function () {
+  bookmarksView.addHandlerRender(controlBookmarks);
   recipeView.addHandlerRender(controlRecipes);
   recipeView.addHandlerUpdateServings(controlServings);
   recipeView.addHandlerAddBookmark(controlAddBookmark);
